@@ -1,29 +1,28 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
-База подозрительных людей
+Məlumat bazası
 {% endblock %}
-
 
 {% block body %}
-База подозрительных людей
+<div class="container mt-5">
+    <h4>Yüksək riskli sərnişinlərin siyahısı</h4>
+    <p>
+        __________________________________________________________________________________________________________________________________________________________________
+    </p>
 
-
-<div class="row">
-
-    {% for post in posts %}
-    <div class="col-md-6 item">
-
-        <div class="item-in">
-            <h4>{{post.title}}</h4>
-            <div class="seperator"></div>
-            <p>{{post.text}}</p>
+    {% if articles|length > 0 %}
+        {% for el in articles %}
+        <div class="alert alert-info">
+            <h2>{{ el.title }}</h2>
+            <p>{{ el.intro }}</p>
+            <p><b>Tarix: {{ el.date.date() }}</b></p>
+            <a href="/posts/{{ el.id }}" class="btn btn-warning">Ətraflı</a>
 
         </div>
-    </div>
-
         {% endfor %}
-    </div>
-{% endblock %}
+    {% else %}
+    <p>Bazada heçbir məlumat yoxdur</p>
+    {% endif %}
 </div>
+{% endblock %}
