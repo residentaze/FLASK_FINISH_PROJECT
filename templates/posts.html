@@ -7,6 +7,13 @@ Məlumat bazası
 {% block body %}
 <div class="container mt-5">
     <h4>Yüksək riskli sərnişinlərin siyahısı</h4>
+<form action="/search" method="POST">
+    <input type="text" name="search_query" placeholder="Enter your search query">
+    <input type="submit" value="Search">
+</form>
+
+
+
     <p>
         __________________________________________________________________________________________________________________________________________________________________
     </p>
@@ -18,6 +25,7 @@ Məlumat bazası
             <p>{{ el.intro }}</p>
             <p><b>Tarix: {{ el.date.date() }}</b></p>
             <a href="/posts/{{ el.id }}" class="btn btn-warning">Ətraflı</a>
+
 
         </div>
         {% endfor %}

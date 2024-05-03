@@ -3,12 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
-
 
 
 class Article(db.Model):
@@ -20,6 +19,7 @@ class Article(db.Model):
 
     def __repr__(self):
         return '<Article %r>' % self.id
+
 
 
 @app.route('/')
@@ -36,6 +36,12 @@ def about():
 def posts():
     articles = Article.query.order_by(Article.date.desc()).all()
     return render_template("posts.html", articles=articles)
+
+@app.route('/search', methods=['POST'])
+def search():
+    posts.articles = request.form.get('search_query')
+    return render_template('results.html', results=posts.articles)
+
 
 @app.route('/posts/<int:id>')
 def post_detail(id):
